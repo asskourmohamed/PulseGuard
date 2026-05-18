@@ -21,9 +21,8 @@ function startMqttSubscriber(brokerUrl, clientId) {
   client.on('message', (topic, message) => {
     try {
       const payload = JSON.parse(message.toString());
-      console.log(`[MQTT] 📨 ${topic}`, payload);
+      console.log(`[MQTT]  ${topic}`, payload);
 
-      // Router selon le topic
       if (topic.endsWith('/vitals')) {
         store.addVital(payload);
       } else if (topic.endsWith('/alerts')) {
