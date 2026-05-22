@@ -34,7 +34,7 @@ const state = {
   heartRate : 72,   // bpm        — plage normale : 65–100
   spo2      : 98,   // %%         — plage normale : 99–100
   systolic  : 120,  // mmHg       — plage normale : 100–140
-  diastolic : 80,   // mmHgg     — plage normale : 60–99
+  diastolic : 80,   // mmHg     — plage normale : 60–99
   temp      : 36.6, // °C         — plage normale : 36.1–37.5
 };
 
