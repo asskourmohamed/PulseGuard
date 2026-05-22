@@ -31,7 +31,7 @@ function randomWalk(current, min, max, step) {
 
 // État interne du "patient simulé"
 const state = {
-  heartRate : 72,   // bpm        — plage normale : 60–100
+  heartRate : 72,   // bpm        — plage normale : 65–100
   spo2      : 98,   // %%         — plage normale : 95–100
   systolic  : 120,  // mmHg       — plage normale : 100–140
   diastolic : 80,   // mmHgg     — plage normale : 60–90
