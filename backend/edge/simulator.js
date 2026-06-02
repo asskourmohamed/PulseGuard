@@ -35,7 +35,7 @@ const state = {
   spo2      : 98,   // %%         — plage normale : 99–100
   systolic  : 120,  // mm     — plage normale : 100–140
   diastolic : 80,   // mmHg       — plage normale : 60–900
-  temp      : 36.6, // °C         — plage normale : 36.1–37.5
+  temp      : 36.6, // °C     — plage normale : 36.1–37.5
 };
 
 function updateVitals() {
