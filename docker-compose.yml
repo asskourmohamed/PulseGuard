@@ -1,0 +1,83 @@
+services:
+
+  db:
+    image: mysql:8.0
+    container_name: signbridge_db
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpassword}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-lsf_database}
+      MYSQL_USER: ${MYSQL_USER:-lsf_user}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-lsf_password}
+    volumes:
+      - mysql_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    networks:
+      - signbridge_net
+
+  django:
+    image: asskourmohamed/signbridge-django:latest
+    container_name: signbridge_django
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SECRET_KEY: ${DJANGO_SECRET_KEY:-change-me-in-production}
+      DEBUG: ${DEBUG:-False}
+      ALLOWED_HOSTS: ${ALLOWED_HOSTS:-localhost,127.0.0.1}
+      DB_ENGINE: django.db.backends.mysql
+      DB_NAME: ${MYSQL_DATABASE:-lsf_database}
+      DB_USER: ${MYSQL_USER:-lsf_user}
+      DB_PASSWORD: ${MYSQL_PASSWORD:-lsf_password}
+      DB_HOST: db
+      DB_PORT: 3306
+      SIGN_SERVICE_URL: http://flask:5001
+    volumes:
+      - media_files:/app/media
+      - static_files:/app/staticfiles
+    ports:
+      - "8000:8000"
+    networks:
+      - signbridge_net
+
+  flask:
+    image: asskourmohamed/signbridge-flask:latest
+    container_name: signbridge_flask
+    restart: unless-stopped
+    environment:
+      FLASK_ENV: production
+    ports:
+      - "5001:5001"
+    # Uncomment ONLY if Ubuntu VM sees a webcam
+    # devices:
+    #   - "/dev/video0:/dev/video0"
+    networks:
+      - signbridge_net
+
+  nginx:
+    image: nginx:1.25-alpine
+    container_name: signbridge_nginx
+    restart: unless-stopped
+    depends_on:
+      - django
+      - flask
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - static_files:/app/staticfiles:ro
+      - media_files:/app/media:ro
+    networks:
+      - signbridge_net
+
+volumes:
+  mysql_data:
+  media_files:
+  static_files:
+
+networks:
+  signbridge_net:
+    driver: bridge
