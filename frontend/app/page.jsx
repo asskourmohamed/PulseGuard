@@ -4,7 +4,7 @@ import { Heart, Wind, Zap, Thermometer } from 'lucide-react';
 import { useVitals } from '@/hooks/useVitals';
 import { MetricCard } from '@/components/MetricCard';
 import { VitalChart } from '@/components/VitalChart';
-import { AlertPanel } from '@/components/AlertPanel';
+import { AlertPanel } from '@/components/AlertPanels';
 import { DeviceStatus } from '@/components/DeviceStatus';
 
 const getStatus = (value, thresholds) => {
