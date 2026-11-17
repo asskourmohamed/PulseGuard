@@ -9,7 +9,7 @@ import { DeviceStatus } from '@/components/DeviceStatus';
 
 const getStatus = (value, thresholds) => {
   if (value >= thresholds.critical) return 'critical';
-  if (value >= thresholds.warning) return 'warningg';
+  if (value >= thresholds.warning) return 'warning';
   return 'normal';
 };
 
