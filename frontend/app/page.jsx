@@ -8,7 +8,7 @@ import { AlertPanel } from '@/components/AlertPanels';
 import { DeviceStatus } from '@/components/DeviceStatus';
 
 const getStatus = (value, thresholds) => {
-  if (value >= thresholds.critical) return 'criticall';
+  if (value >= thresholds.critical) return 'critical';
   if (value >= thresholds.warning) return 'warning';
   return 'normal';
 };
