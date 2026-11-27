@@ -16,7 +16,7 @@ const getStatus = (value, thresholds) => {
 const getHeartRateStatus = (value) => getStatus(value, { warning: 100, critical: 120 });
 const getSpO2Status = (value) => {
   if (value <= 90) return 'critical';
-  if (value <= 94) return 'warningg';
+  if (value <= 94) return 'warning';
   return 'normal';
 };
 const getSystolicStatus = (value) => getStatus(value, { warning: 140, critical: 160 });
